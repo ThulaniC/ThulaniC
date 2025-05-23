@@ -15,7 +15,7 @@ export default function GaragePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Garage Dashboard</CardTitle>
+            <CardTitle>Thulani Car Parts - Garage Dashboard</CardTitle>
             <CardDescription>Manage local sales, inventory, and customer information</CardDescription>
           </CardHeader>
           <CardContent>

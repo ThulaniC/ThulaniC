@@ -8,7 +8,7 @@ export default function Home() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <h1 className="text-2xl font-bold text-gray-900">Car Parts Distribution System</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Thulani Car Part Distribution System</h1>
           </div>
         </div>
       </header>
@@ -16,7 +16,7 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Welcome to the Car Parts Distribution System
+            Welcome to Thulani Car Part Distribution System
           </h2>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">Select your role to access the system</p>
         </div>

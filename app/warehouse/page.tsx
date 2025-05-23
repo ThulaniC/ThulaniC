@@ -14,7 +14,7 @@ export default function WarehousePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Warehouse Dashboard</CardTitle>
+            <CardTitle>Thulani Car Parts - Warehouse Dashboard</CardTitle>
             <CardDescription>Manage central inventory, pricing, and distribution</CardDescription>
           </CardHeader>
           <CardContent>
