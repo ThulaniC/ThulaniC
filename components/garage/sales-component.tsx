@@ -48,7 +48,7 @@ export default function SalesComponent() {
   }
 
   const completeSale = () => {
-    alert(`Sale completed! Total: $${calculateTotal()}`)
+    alert(`Sale completed! Total: K${calculateTotal()}`)
     setCart([])
   }
 
@@ -78,7 +78,7 @@ export default function SalesComponent() {
                 {availableParts.map((part) => (
                   <TableRow key={part.id}>
                     <TableCell>{part.name}</TableCell>
-                    <TableCell>${part.price.toFixed(2)}</TableCell>
+                    <TableCell>K{part.price.toFixed(2)}</TableCell>
                     <TableCell>{part.stock}</TableCell>
                     <TableCell>
                       <Button size="sm" onClick={() => addToCart(part)} disabled={part.stock <= 0}>
@@ -125,7 +125,7 @@ export default function SalesComponent() {
                             min="1"
                           />
                         </TableCell>
-                        <TableCell>${(item.price * item.quantity).toFixed(2)}</TableCell>
+                        <TableCell>K{(item.price * item.quantity).toFixed(2)}</TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>
                             ✕
@@ -138,7 +138,7 @@ export default function SalesComponent() {
 
                 <div className="mt-4 flex justify-between items-center font-bold">
                   <span>Total:</span>
-                  <span>${calculateTotal()}</span>
+                  <span>K{calculateTotal()}</span>
                 </div>
 
                 <div className="mt-6 space-y-4">

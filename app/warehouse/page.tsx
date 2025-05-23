@@ -24,7 +24,7 @@ export default function WarehousePage() {
                   <CardTitle className="text-lg">Total Inventory Value</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$1,245,789.00</p>
+                  <p className="text-2xl font-bold">K1,245,789.00</p>
                 </CardContent>
               </Card>
 

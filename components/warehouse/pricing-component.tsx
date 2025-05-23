@@ -17,7 +17,7 @@ export default function PricingComponent() {
   ]
 
   const handlePriceUpdate = (partId: number, newPrice: number) => {
-    alert(`Price updated for part ${partId} to $${newPrice.toFixed(2)}`)
+    alert(`Price updated for part ${partId} to K${newPrice.toFixed(2)}`)
   }
 
   return (
@@ -68,7 +68,7 @@ export default function PricingComponent() {
                 <TableCell>{part.name}</TableCell>
                 <TableCell>{part.partNumber}</TableCell>
                 <TableCell>{part.category}</TableCell>
-                <TableCell>${part.currentPrice.toFixed(2)}</TableCell>
+                <TableCell>K{part.currentPrice.toFixed(2)}</TableCell>
                 <TableCell>
                   <Input type="number" step="0.01" defaultValue={part.currentPrice} className="w-24" min="0" />
                 </TableCell>

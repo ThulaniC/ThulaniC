@@ -22,7 +22,7 @@ export default function CustomerComponent() {
       email: "john.smith@email.com",
       address: "123 Customer St, Downtown",
       lastPurchase: "2023-05-10",
-      totalSpent: "$245.97",
+      totalSpent: "K245.97",
     },
     {
       id: 2,
@@ -31,7 +31,7 @@ export default function CustomerComponent() {
       email: "jane.doe@email.com",
       address: "456 Buyer Ave, Westside",
       lastPurchase: "2023-05-08",
-      totalSpent: "$189.45",
+      totalSpent: "K189.45",
     },
     {
       id: 3,
@@ -40,7 +40,7 @@ export default function CustomerComponent() {
       email: "bob.johnson@email.com",
       address: "789 Client Blvd, Eastside",
       lastPurchase: "2023-05-05",
-      totalSpent: "$456.78",
+      totalSpent: "K456.78",
     },
   ]
 

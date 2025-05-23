@@ -14,9 +14,9 @@ export default function OrderComponent() {
 
   // Mock data for demonstration
   const existingOrders = [
-    { id: 1, date: "2023-05-10", type: "Warehouse", status: "Pending", items: 5, total: "$245.95" },
-    { id: 2, date: "2023-05-08", type: "Emergency", status: "Completed", items: 2, total: "$89.98" },
-    { id: 3, date: "2023-05-05", type: "Warehouse", status: "In Progress", items: 8, total: "$456.78" },
+    { id: 1, date: "2023-05-10", type: "Warehouse", status: "Pending", items: 5, total: "K245.95" },
+    { id: 2, date: "2023-05-08", type: "Emergency", status: "Completed", items: 2, total: "K89.98" },
+    { id: 3, date: "2023-05-05", type: "Warehouse", status: "In Progress", items: 8, total: "K456.78" },
   ]
 
   const availableParts = [
@@ -93,7 +93,7 @@ export default function OrderComponent() {
                   {availableParts.map((part) => (
                     <TableRow key={part.id}>
                       <TableCell>{part.name}</TableCell>
-                      <TableCell>${part.price.toFixed(2)}</TableCell>
+                      <TableCell>K{part.price.toFixed(2)}</TableCell>
                       <TableCell>{orderType === "warehouse" ? part.warehouseStock : part.otherGarageStock}</TableCell>
                       <TableCell>
                         <Input type="number" className="w-20" min="1" defaultValue="1" />

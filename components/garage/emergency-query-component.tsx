@@ -145,7 +145,7 @@ export default function EmergencyQueryComponent() {
                         {result.quantity}
                       </Badge>
                     </TableCell>
-                    <TableCell>${result.price.toFixed(2)}</TableCell>
+                    <TableCell>K{result.price.toFixed(2)}</TableCell>
                     <TableCell>{result.distance}</TableCell>
                     <TableCell>{result.estimatedDelivery}</TableCell>
                     <TableCell>

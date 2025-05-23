@@ -72,7 +72,7 @@ export default function InventoryComponent() {
                 <TableRow key={item.id}>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.partNumber}</TableCell>
-                  <TableCell>${item.price.toFixed(2)}</TableCell>
+                  <TableCell>K{item.price.toFixed(2)}</TableCell>
                   <TableCell>{item.stock}</TableCell>
                   <TableCell>{item.reorderLevel}</TableCell>
                   <TableCell>

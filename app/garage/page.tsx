@@ -25,7 +25,7 @@ export default function GaragePage() {
                   <CardTitle className="text-lg">Today's Sales</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$1,245.89</p>
+                  <p className="text-2xl font-bold">K1,245.89</p>
                 </CardContent>
               </Card>
 

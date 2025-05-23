@@ -36,7 +36,7 @@ export default function ManagerPage() {
                   <CardTitle className="text-lg">Total National Sales</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$3,245,789.00</p>
+                  <p className="text-2xl font-bold">K3,245,789.00</p>
                 </CardContent>
               </Card>
 
@@ -45,7 +45,7 @@ export default function ManagerPage() {
                   <CardTitle className="text-lg">Total Inventory Value</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-2xl font-bold">$5,789,456.00</p>
+                  <p className="text-2xl font-bold">K5,789,456.00</p>
                 </CardContent>
               </Card>
 
@@ -90,7 +90,7 @@ export default function ManagerPage() {
                       <CardTitle className="text-lg">Total Sales</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-3xl font-bold">$1,245,789.00</p>
+                      <p className="text-3xl font-bold">K1,245,789.00</p>
                       <p className="text-sm text-green-600">↑ 12.5% from last period</p>
                     </CardContent>
                   </Card>
@@ -110,7 +110,7 @@ export default function ManagerPage() {
                       <CardTitle className="text-lg">Average Order Value</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-3xl font-bold">$147.32</p>
+                      <p className="text-3xl font-bold">K147.32</p>
                       <p className="text-sm text-green-600">↑ 4.1% from last period</p>
                     </CardContent>
                   </Card>
@@ -136,7 +136,7 @@ export default function ManagerPage() {
                         <CardTitle className="text-lg">Downtown Garage</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-2xl font-bold">$45,789.00</p>
+                        <p className="text-2xl font-bold">K45,789.00</p>
                         <p className="text-sm text-green-600">↑ 8.2% this month</p>
                       </CardContent>
                     </Card>
@@ -146,7 +146,7 @@ export default function ManagerPage() {
                         <CardTitle className="text-lg">Westside Auto Parts</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-2xl font-bold">$38,456.00</p>
+                        <p className="text-2xl font-bold">K38,456.00</p>
                         <p className="text-sm text-green-600">↑ 5.7% this month</p>
                       </CardContent>
                     </Card>
@@ -156,7 +156,7 @@ export default function ManagerPage() {
                         <CardTitle className="text-lg">Eastside Car Center</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-2xl font-bold">$52,123.00</p>
+                        <p className="text-2xl font-bold">K52,123.00</p>
                         <p className="text-sm text-green-600">↑ 12.1% this month</p>
                       </CardContent>
                     </Card>
