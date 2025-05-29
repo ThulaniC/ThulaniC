@@ -1,65 +1,23 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { requireAuth } from "@/lib/auth"
-import { createSale, addSaleItem, updateStockQuantity, getStockByLocation } from "@/lib/db"
+import { NextResponse } from "next/server"
+import { createSale, addSaleItem } from "@/lib/database"
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const user = requireAuth()
-    const { garageId, customerId, items, paymentMethod } = await request.json()
+    const { garageId, customerId, totalAmount, paymentMethod, items } = await request.json()
 
-    // Validate request
-    if (!garageId || !customerId || !items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ success: false, error: "Invalid request data" }, { status: 400 })
-    }
+    // Create the sale record
+    const sale = await createSale(garageId, customerId, totalAmount, paymentMethod)
 
-    // Calculate total amount
-    const totalAmount = items.reduce((sum, item) => sum + item.quantity * item.price - item.discount, 0)
-
-    // Create the sale
-    const sale = await createSale(garageId, customerId, totalAmount)
-
-    if (!sale) {
-      return NextResponse.json({ success: false, error: "Failed to create sale" }, { status: 500 })
-    }
-
-    // Add sale items and update stock
+    // Add sale items
+    const saleItems = []
     for (const item of items) {
-      // Add the item to the sale
-      await addSaleItem(sale.sale_id, item.product_id, item.quantity, item.price, item.discount)
-
-      // Update stock quantity
-      const stock = await getStockByLocation("garage", garageId)
-      const stockItem = stock.find((s) => s.stock_id === item.stock_id)
-
-      if (stockItem) {
-        const newQuantity = Number(stockItem.quantity) - item.quantity
-        await updateStockQuantity(item.stock_id, newQuantity)
-      }
+      const saleItem = await addSaleItem(sale.sale_id, item.partId, item.quantity, item.unitPrice)
+      saleItems.push(saleItem)
     }
 
-    // Create payment record
-    await fetch(`/api/payments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        saleId: sale.sale_id,
-        amount: totalAmount,
-        paymentMethod,
-      }),
-    })
-
-    return NextResponse.json({
-      success: true,
-      saleId: sale.sale_id,
-      message: "Sale created successfully",
-    })
+    return NextResponse.json({ sale, saleItems })
   } catch (error) {
-    console.error("Sale creation error:", error)
-    return NextResponse.json(
-      { success: false, error: error instanceof Error ? error.message : "An error occurred" },
-      { status: 500 },
-    )
+    console.error("Error creating sale:", error)
+    return NextResponse.json({ error: "Failed to create sale" }, { status: 500 })
   }
 }

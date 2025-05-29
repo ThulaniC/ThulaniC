@@ -1,112 +1,79 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
-import { requireRole } from "@/lib/auth"
-import DashboardLayout from "@/components/layout/dashboard-layout"
-import Link from "next/link"
-import { getStockBelowReorderLevel, getWarehouseById } from "@/lib/db"
-import { AlertCircle, Package, TruckIcon, Settings, ClipboardList } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import WarehouseInventoryComponent from "@/components/warehouse/warehouse-inventory-component"
+import PricingComponent from "@/components/warehouse/pricing-component"
+import DiscountsComponent from "@/components/warehouse/discounts-component"
+import DispatchComponent from "@/components/warehouse/dispatch-component"
+import WarehouseHeader from "@/components/warehouse/warehouse-header"
 
-export default async function WarehouseDashboard() {
-  const user = requireRole(["warehouse_staff", "manager"])
-  const warehouse = await getWarehouseById(user.locationId)
-  const lowStockItems = await getStockBelowReorderLevel("warehouse", user.locationId)
-
+export default function WarehousePage() {
   return (
-    <DashboardLayout user={user}>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">{warehouse.name} Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back, {user.username}. Here's an overview of your warehouse.</p>
-        </div>
+    <div className="min-h-screen bg-gray-100">
+      <WarehouseHeader />
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Inventory</CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1,430</div>
-              <p className="text-xs text-muted-foreground">Across 10 product categories</p>
-            </CardContent>
-          </Card>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Thulani Car Parts - Warehouse Dashboard</CardTitle>
+            <CardDescription>Manage central inventory, pricing, and distribution</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">Total Inventory Value</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-2xl font-bold">K1,245,789.00</p>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Shipments</CardTitle>
-              <TruckIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">12</div>
-              <p className="text-xs text-muted-foreground">3 emergency orders</p>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">Pending Dispatches</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-2xl font-bold">12</p>
+                </CardContent>
+              </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Products</CardTitle>
-              <Settings className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">10</div>
-              <p className="text-xs text-muted-foreground">4 with active discounts</p>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg">Active Discounts</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-2xl font-bold">8</p>
+                </CardContent>
+              </Card>
+            </div>
+          </CardContent>
+        </Card>
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Garage Orders</CardTitle>
-              <ClipboardList className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">8</div>
-              <p className="text-xs text-muted-foreground">From 4 different garages</p>
-            </CardContent>
-          </Card>
-        </div>
+        <Tabs defaultValue="inventory">
+          <TabsList className="grid grid-cols-4 mb-6">
+            <TabsTrigger value="inventory">Inventory</TabsTrigger>
+            <TabsTrigger value="pricing">Pricing</TabsTrigger>
+            <TabsTrigger value="discounts">Discounts</TabsTrigger>
+            <TabsTrigger value="dispatch">Dispatch</TabsTrigger>
+          </TabsList>
 
-        {lowStockItems.length > 0 && (
-          <Alert>
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Low Stock Alert</AlertTitle>
-            <AlertDescription>
-              You have {lowStockItems.length} items below reorder level.
-              <Button asChild variant="link" className="p-0 h-auto font-normal">
-                <Link href="/warehouse/stock"> View stock</Link>
-              </Button>
-            </AlertDescription>
-          </Alert>
-        )}
+          <TabsContent value="inventory">
+            <WarehouseInventoryComponent />
+          </TabsContent>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Orders</CardTitle>
-              <CardDescription>Orders from garages awaiting fulfillment.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">No pending orders to display.</p>
-              <Button asChild variant="outline" className="mt-4">
-                <Link href="/warehouse/orders">View All Orders</Link>
-              </Button>
-            </CardContent>
-          </Card>
+          <TabsContent value="pricing">
+            <PricingComponent />
+          </TabsContent>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Stock Management</CardTitle>
-              <CardDescription>Manage warehouse inventory.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">Monitor and update stock levels.</p>
-              <Button asChild variant="outline" className="mt-4">
-                <Link href="/warehouse/stock">Manage Stock</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </DashboardLayout>
+          <TabsContent value="discounts">
+            <DiscountsComponent />
+          </TabsContent>
+
+          <TabsContent value="dispatch">
+            <DispatchComponent />
+          </TabsContent>
+        </Tabs>
+      </main>
+    </div>
   )
 }

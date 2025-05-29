@@ -1,51 +1,23 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { requireAuth } from "@/lib/auth"
-import { createOrder, addOrderItem, getProductById } from "@/lib/db"
+import { NextResponse } from "next/server"
+import { createOrder, addOrderItem } from "@/lib/database"
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const user = requireAuth()
-    const { fromType, fromId, toType, toId, isEmergency, items } = await request.json()
+    const { garageId, orderType, items } = await request.json()
 
-    // Validate request
-    if (!fromType || !fromId || !toType || !toId || !items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ success: false, error: "Invalid request data" }, { status: 400 })
-    }
-
-    // Create the order
-    const order = await createOrder(fromType, fromId, toType, toId, isEmergency)
-
-    if (!order) {
-      return NextResponse.json({ success: false, error: "Failed to create order" }, { status: 500 })
-    }
+    // Create the order record
+    const order = await createOrder(garageId, orderType)
 
     // Add order items
+    const orderItems = []
     for (const item of items) {
-      // Verify product exists and get current price
-      const product = await getProductById(item.product_id)
-      if (!product) {
-        return NextResponse.json(
-          { success: false, error: `Product with ID ${item.product_id} not found` },
-          { status: 400 },
-        )
-      }
-
-      // Use the current price from the database
-      const price = product.on_offer && product.discount_price ? product.discount_price : product.price
-
-      await addOrderItem(order.order_id, item.product_id, item.quantity, price)
+      const orderItem = await addOrderItem(order.order_id, item.partId, item.quantity)
+      orderItems.push(orderItem)
     }
 
-    return NextResponse.json({
-      success: true,
-      orderId: order.order_id,
-      message: "Order created successfully",
-    })
+    return NextResponse.json({ order, orderItems })
   } catch (error) {
-    console.error("Order creation error:", error)
-    return NextResponse.json(
-      { success: false, error: error instanceof Error ? error.message : "An error occurred" },
-      { status: 500 },
-    )
+    console.error("Error creating order:", error)
+    return NextResponse.json({ error: "Failed to create order" }, { status: 500 })
   }
 }
